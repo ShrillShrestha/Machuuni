@@ -4,7 +4,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 
-//entry point to bind DOM element(root) with the frontend 'App' 
 ReactDOM.render(
     <BrowserRouter>
       <App />

@@ -1,10 +1,16 @@
-//importing google map api services
+//google map api service
 const {Client} = require("@googlemaps/google-maps-services-js");
 const { PlacesNearbyRanking } = require("@googlemaps/google-maps-services-js/dist/places/placesnearby");
 
-const client = new Client({});
+const client = new Client({}); //google client object
 
-//search nearby mental health clinic locations(coordinates)
+/**
+ * Get marker locations for the nearby places
+ * @param {number} lat - latitude of the user/selected location
+ * @param {number} lng  - longtitude of the user/selected location
+ * @returns {Promise} - promise object represents nearby places marker list
+ */
+
 exports.markerPoints = (lat, lng) => {
   return new Promise(function (resolve, reject) { 
       client.placesNearby({  //google maps api places near by feature
@@ -17,21 +23,25 @@ exports.markerPoints = (lat, lng) => {
       },
       timeout: 1000,
       }).then((result)=>{
-        resolve(result.data.results);
+        resolve(result.data.results); //nearby places markers
       }).catch((err)=>{
         reject(err);
       })
   })
 }
 
-//get details about a location [photos, websites, ratings, formatted address, etc.]
+/**
+ * Get detail[selected] information on a location
+ * @param {string} placeID - unique place id for a location
+ * @returns {Promise} - detail information on  a location [photos, websites, ratings, formatted address, etc.]
+ */
 exports.markerDetails = (placeID) => {
   return new Promise(function (resolve, reject){
-    client.placeDetails({ //map api to get details on a location
+    client.placeDetails({ 
       params: {
         place_id: placeID,
         fields: ['name','formatted_address', 'geometry', 'rating',
-        'website', 'formatted_phone_number'],
+        'website', 'formatted_phone_number'], //fields to retrive info on a location
         key: process.env.MAP_API_KEY,
       },
       timeout: 1000,
@@ -44,7 +54,7 @@ exports.markerDetails = (placeID) => {
 }
 
 /*
-  Documentation in 
+  API Documentation: 
     - https://googlemaps.github.io/google-maps-services-js/
     - https://developers.google.com/maps/documentation/javascript/overview
 */

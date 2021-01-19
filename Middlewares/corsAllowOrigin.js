@@ -1,3 +1,9 @@
+/**
+ * Set manual origin access to solve cors error to google map api
+ * @param {Object} req - request object
+ * @param {Object} res - respose object
+ * @param {function} next - function that passes control to the next matching route
+ */
 exports.setCorsAuth = (req, res, next) => {
   //set headers to resolve cors error
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/map/Location.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/map/Location.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import PlacesAutocomplete, {getLatLng,geocodeByAddress} from 'react-places-autocomplete';
+
+/**
+ * Search location component
+ * @param {Object} props - props object
+ * @returns - location options
+ */
+const Location = (props) => {
+  const [address, setAddress] = React.useState("");
+
+  /**
+   * Set Coordinates
+   * @param {string} value - location name 
+   */
+  const handleSelect = async (value) => {
+    try{
+      const results = await geocodeByAddress(value); //results for a selected location
+      const latLng = await getLatLng(results[0]); //coordinates for the top option
+      setAddress(value);
+      props.locUpdate(latLng);
+    }catch(err){
+      props.errUpdate(true, "Something went wrong searching the place!");
+    }
+  };
+
+  return(
+    &lt;> 
+      &lt;div style={
+        {
+          position: 'absolute',
+          top: '3.5px',
+          left: '45%',
+        }
+      }
+      >
+        &lt;span>Mental Health Clinics Nearby&lt;/span>
+      &lt;/div>
+      &lt;div style={
+        {
+          position: 'absolute',
+          top: '57px',
+          left: '10px',
+        }
+      }>
+        &lt;button onClick={props.currentLocation}> 
+          Current Location
+        &lt;/button>
+      &lt;/div>
+
+      &lt;div style={
+        {
+          position: 'absolute',
+          top: '85px',
+          left: '10px',
+        }
+      }>
+        &lt;PlacesAutocomplete
+          value={address}
+          onChange={setAddress}
+          onSelect={handleSelect}
+        >
+          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => ( //provide autocomplete feature
+            &lt;div
+            style={{
+                backgroundColor:'#D3D3D3',
+                paddingLeft:'3px',
+                borderRadius: '5px'
+              }}>
+              &lt;span >Search Location: &lt;/span>
+              &lt;input {...getInputProps({ placeholder: "Press Enter or Select an option to submit", size:"35" })} /> 
+
+              &lt;div>
+                {loading ? &lt;div>...loading&lt;/div> : null}
+                {suggestions.map((suggestion,ind) => {
+                    const style = {
+                      backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                    };
+                    return (
+                      &lt;div {...getSuggestionItemProps(suggestion, { style })} key={ind}>
+                        {suggestion.description}
+                      &lt;/div>
+                    );
+                  })
+                }
+              &lt;/div>
+            &lt;/div>
+          )}
+        &lt;/PlacesAutocomplete>
+      &lt;/div>
+    &lt;/>
+  )
+}
+
+export default Location;
+
+/*
+  Documentation for react-place-autocomplete at: https://www.npmjs.com/package/react-places-autocomplete
+*/</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CurrentLocation.html">CurrentLocation</a></li><li><a href="MapContainer.html">MapContainer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#activeMarker">activeMarker</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#browserLocation">browserLocation</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#errorMessage">errorMessage</a></li><li><a href="global.html#getMarkerPoints">getMarkerPoints</a></li><li><a href="global.html#getPlaceDetails">getPlaceDetails</a></li><li><a href="global.html#hasMarker">hasMarker</a></li><li><a href="global.html#Information">Information</a></li><li><a href="global.html#isbrowserLocationError">isbrowserLocationError</a></li><li><a href="global.html#isError">isError</a></li><li><a href="global.html#isLoaded">isLoaded</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#marker">marker</a></li><li><a href="global.html#markerDetails">markerDetails</a></li><li><a href="global.html#pastLocation">pastLocation</a></li><li><a href="global.html#pErr">pErr</a></li><li><a href="global.html#position">position</a></li><li><a href="global.html#selectedPlace">selectedPlace</a></li><li><a href="global.html#showingInfoWindow">showingInfoWindow</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Jan 18 2021 21:43:50 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -24,6 +24,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "jsdoc": "^3.6.6",
     "nodemon": "^2.0.7"
   }
 }

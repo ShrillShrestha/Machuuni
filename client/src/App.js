@@ -1,7 +1,9 @@
 import MapContainer from './components/map/MapContainer';
 import { Route, Switch } from 'react-router-dom'; //libraries for routing
 
-//Main fronend app
+/**
+ * Main App
+ */
 function App() {
   return (
     <main>
