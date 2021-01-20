@@ -31,6 +31,10 @@ const Location = (props) => {
           position: 'absolute',
           top: '3.5px',
           left: '45%',
+          backgroundColor:'#fff',
+          borderRadius: '3px',
+          padding: '0 5px',
+          fontWeight: 'bold'
         }
       }
       >
@@ -55,19 +59,22 @@ const Location = (props) => {
           left: '10px',
         }
       }>
+        <div
+            style={{
+                backgroundColor:'#D3D3D3',
+                paddingLeft:'3px',
+                borderRadius: '5px',
+                display: 'inline'
+              }}>
+              <span >Search Location: </span>
+        </div>
         <PlacesAutocomplete
           value={address}
           onChange={setAddress}
           onSelect={handleSelect}
         >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => ( //provide autocomplete feature
-            <div
-            style={{
-                backgroundColor:'#D3D3D3',
-                paddingLeft:'3px',
-                borderRadius: '5px'
-              }}>
-              <span >Search Location: </span>
+            <div>
               <input {...getInputProps({ placeholder: "Press Enter or Select an option to submit", size:"35" })} /> 
 
               <div>

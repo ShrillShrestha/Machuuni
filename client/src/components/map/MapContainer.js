@@ -61,16 +61,19 @@ class MapContainer extends Component{
    */
   handleLocationError = (hasGeoLocation) => {
     if(hasGeoLocation) {
+      console.log("hasGeoLocation but error!")
       this.setState({
         position: {lat: -33.856, lng: 151.215},
+        browserLocation: {lat: -33.856, lng: 151.215},
         isbrowserLocationError: true,
-        errorMessage: "Allow location service to locate place nearby. Using default location",
+        errorMessage: "Allow location service to locate place nearby. Using default location!",
       })
     }else{
       this.setState({
         position: {lat: -33.856, lng: 151.215},
+        browserLocation: {lat: -33.856, lng: 151.215},
         isbrowserLocationError: true,
-        errorMessage: "Browser doesn't provide location service. Using default location",
+        errorMessage: "Browser doesn't provide location service. Using default location!",
       })
     }
   }

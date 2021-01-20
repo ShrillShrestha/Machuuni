@@ -1,3 +1,4 @@
+const functions = require("firebase-functions");
 //google map api service
 const {Client} = require("@googlemaps/google-maps-services-js");
 const { PlacesNearbyRanking } = require("@googlemaps/google-maps-services-js/dist/places/placesnearby");
@@ -19,7 +20,7 @@ exports.markerPoints = (lat, lng) => {
         type: "health",
         rankby:PlacesNearbyRanking.distance,
         location:[parseFloat(lat), parseFloat(lng)],
-        key: process.env.MAP_API_KEY,
+        key: functions.config().map.api_key //process.env.MAP_API_KEY,
       },
       timeout: 1000,
       }).then((result)=>{
@@ -42,7 +43,7 @@ exports.markerDetails = (placeID) => {
         place_id: placeID,
         fields: ['name','formatted_address', 'geometry', 'rating',
         'website', 'formatted_phone_number'], //fields to retrive info on a location
-        key: process.env.MAP_API_KEY,
+        key: functions.config().map.api_key //process.env.MAP_API_KEY,
       },
       timeout: 1000,
     }).then((results)=>{

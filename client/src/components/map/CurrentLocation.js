@@ -19,7 +19,6 @@ let pErr = true; //sets true if wrong location is seen for the first time
  * @extends Component
  */
 export class CurrentLocation extends Component {
-
   /**
    * Constructor for CurrentLocation instance
    * @param {Object} props - props object
@@ -37,6 +36,7 @@ export class CurrentLocation extends Component {
   /** @member {Object} selectedPlace - selected marker details (after api call) */
   constructor(props){
     super(props);
+    console.log(this.props.pos)
     this.state = {
       marker: null, 
       hasMarker: 1, 
@@ -140,7 +140,10 @@ export class CurrentLocation extends Component {
    * @function
    */
   inMapAlert = () => {
-    let mes = this.state.errorMessage + "\nUse current location or a different address!";
+    let mes = this.state.errorMessage;
+    if(this.state.isLoaded){
+      mes += "\nUse current location or a different address!";
+    }
     alert(mes);
     this.updateMarker(this.state.currentLocation[0], this.state.currentLocation[1])
   }
@@ -198,7 +201,7 @@ export class CurrentLocation extends Component {
           {this.props.isErr? pErr = !this.props.isErr : pErr = true}
 
         </Map>:
-          !this.state.isLoaded && this.state.isError? alert(this.state.errorMessage): //alert initial error (before initial map loading)
+          !this.state.isLoaded && this.state.isError? this.inMapAlert(): //alert initial error (before initial map loading)
         <CircularProgress style={{position:'absolute', top: '50%', left:'50%'}}>{this.updateMarker(this.props.pos.lat, this.props.pos.lng)}</CircularProgress>}  
       </>
     )

@@ -12,7 +12,7 @@ export const getMarkerPoints = (lat, lng, updateMarker, updateErr) => {
   let noMarker = 1;
   let isConnected = false; //check if it is connection error
   console.log("Sending req to backend to get markers...");
-  fetch(`${backendURL}/map?lat=${lat}&lng=${lng}`)
+  fetch(`${backendURL}/api/map?lat=${lat}&lng=${lng}`)
   .then(async result =>{
     isConnected = true;
     let ele = await result.json();
@@ -43,7 +43,7 @@ export const getMarkerPoints = (lat, lng, updateMarker, updateErr) => {
  */
 export const getPlaceDetails = (placeID, updateDetailDict, updateErr, marker) => {
   console.log("Sending req to backend to get marker details...");
-  fetch(`${backendURL}/map/details?place_id=${placeID}`)
+  fetch(`${backendURL}/api/map/details?place_id=${placeID}`)
   .then(async (result) => {
     if(result.ok){
       let ele = await result.json();
