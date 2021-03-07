@@ -14,19 +14,20 @@ const client = new Client({}); //google client object
 
 exports.markerPoints = (lat, lng) => {
   return new Promise(function (resolve, reject) { 
+    console.log(process.env.MAP_API_KEY);
       client.placesNearby({  //google maps api places near by feature
       params:{
         keyword: "mental health",
         type: "health",
         rankby:PlacesNearbyRanking.distance,
         location:[parseFloat(lat), parseFloat(lng)],
-        key: functions.config().map.api_key //process.env.MAP_API_KEY,
+        key: process.env.MAP_API_KEY,
       },
       timeout: 1000,
       }).then((result)=>{
         resolve(result.data.results); //nearby places markers
       }).catch((err)=>{
-        reject(err);
+        reject("Hello");
       })
   })
 }
@@ -43,7 +44,7 @@ exports.markerDetails = (placeID) => {
         place_id: placeID,
         fields: ['name','formatted_address', 'geometry', 'rating',
         'website', 'formatted_phone_number'], //fields to retrive info on a location
-        key: functions.config().map.api_key //process.env.MAP_API_KEY,
+        key: process.env.MAP_API_KEY,
       },
       timeout: 1000,
     }).then((results)=>{
